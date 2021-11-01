@@ -7,9 +7,9 @@ namespace Crypto
 {
     public class SingleByteXOR
     {
-        public string Input { get; set; }
-        public List<int> Hexs { get; set; }
-        public List<char> ASCII { get; set; }
+        private string Input { get; set; }
+        private List<int> Hexs { get; set; }
+        private List<char> ASCII { get; set; }
 
         public SingleByteXOR(string input)
         {
