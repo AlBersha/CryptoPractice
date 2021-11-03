@@ -37,5 +37,27 @@ namespace Crypto
 
             return outs;
         }
+
+        public Dictionary<string, string> ImprovedBruteForce()
+        {
+            var outs = new Dictionary<string, string>();
+            var amount = 0;
+            foreach (var symb in ASCII)
+            {
+                var output = Hexs.Aggregate("", (current, hex) => current + char.ToString((char) (hex ^ symb)));
+                var n = output.Count(c => c > 64 && c < 123);
+                if (amount <= n)
+                {
+                    if (amount < n)
+                    {
+                        outs.Clear();
+                        amount = n;
+                    }
+                    outs.Add(symb.ToString(), output);
+                }
+            }
+            
+            return outs;
+        }
     }
 }
