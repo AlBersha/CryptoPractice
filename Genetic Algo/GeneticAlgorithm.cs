@@ -82,10 +82,10 @@ namespace Crypto
                 nextGeneration.Add(CurrentPopulation[i]);
             }
 
-            var secondParent = CurrentPopulation[Selection()];
             for (var i = PopulationSize/7; i < PopulationSize; i+=2 ){
                 var firstParent = CurrentPopulation[Selection()];
-
+                var secondParent = CurrentPopulation[Selection()];
+                
                 Crossover(firstParent, secondParent, nextGeneration);
             }
             CurrentPopulation.Clear();
@@ -103,17 +103,14 @@ namespace Crypto
             var childSecond = new Gene();
 
             for (var i = start; i < end; i++) {
-                var first = firstParent.gene[i];
-                var second = secondParent.gene[i];
-
-                childFirst.gene[i] = second;
-                childSecond.gene[i] = first;
+                childFirst.gene[i] = secondParent.gene[i];
+                childSecond.gene[i] = firstParent.gene[i];
 
             }
 
             for (var i = 0; i < firstParent.gene.Count; i++) {
-                if(i==start){
-                    i+=end-start;
+                if(i == start){
+                    i += end - start;
                     if(i == firstParent.gene.Count)
                         continue;
                 }
@@ -176,16 +173,6 @@ namespace Crypto
         private int Selection()
         {
             return random.Next(0, CurrentPopulation.Count / 3);
-
-            // var totalFitness = CurrentPopulation.Sum(t => t.fitness);
-            // var rand = random.Next((int)totalFitness);
-            // var partialSum = .0;
-            // for (var i = 0; i < CurrentPopulation.Count; i++) {
-            //     partialSum+= CurrentPopulation[i].fitness;
-            //     if(partialSum >= rand)
-            //         return i;
-            // }
-            // return -1;
         }
         
         private double Fitness( Dictionary<string, double> textTrigrams, Dictionary<string, double> trigrams ){
